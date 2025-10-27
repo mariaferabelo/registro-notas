@@ -1,5 +1,4 @@
 package view;
-import rmi.*;
 import java.rmi.AlreadyBoundException;
 import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
@@ -7,7 +6,7 @@ import java.rmi.RemoteException;
 import controller.*;
 /**
  *
- * @author Cris
+ * @author Maria
  */
 public class Servidor {
     public static void main(String[] args) {

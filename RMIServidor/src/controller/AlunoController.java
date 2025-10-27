@@ -17,19 +17,20 @@ public class AlunoController extends UnicastRemoteObject implements InterfaceAlu
     
     @Override
     public boolean inserir(AlunoModel aluno) throws RemoteException {
-        boolean retorno = false;
         Conexao c = new Conexao();
         c.conectar();
-        String sql = "insert into aluno(nome, matricula) values (?, ?)";
-        try{
-            PreparedStatement sentenca = c.conector.prepareStatement(sql);
-            if(!sentenca.execute())
-                retorno = true;
-        }catch(SQLException e){
-            System.err.println("Erro ao inserir: "+e.getMessage());
+        String sql = "INSERT INTO Aluno (nome, matricula) VALUES (?, ?)";
+        try (PreparedStatement ps = c.conector.prepareStatement(sql)) {
+            ps.setString(1, aluno.getNome());
+            ps.setString(2, aluno.getMatricula());
+            int rows = ps.executeUpdate();
+            c.desconectar();
+            return rows > 0;
+        } catch (SQLException e) {
+            System.err.println("Erro ao inserir aluno: " + e.getMessage());
+            c.desconectar();
+            return false;
         }
-        c.desconectar();
-        return retorno;
     }
     @Override
     public ArrayList<AlunoModel> listarAlunos() {
