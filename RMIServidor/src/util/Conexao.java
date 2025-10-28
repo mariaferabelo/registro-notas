@@ -12,7 +12,8 @@ public class Conexao {
             Class.forName("org.postgresql.Driver");
 
             // URL com SSL obrigatório (Neon exige)
-            String url = "jdbc:postgresql://ep-hidden-glitter-actpv1uq-pooler.sa-east-1.aws.neon.tech:5432/neondb?sslmode=require";
+            //!String url = "jdbc:postgresql://ep-hidden-glitter-actpv1uq-pooler.sa-east-1.aws.neon.tech:5432/neondb?sslmode=require";
+            String url = "jdbc:postgresql://ep-hidden-glitter-actpv1uq-pooler.sa-east-1.aws.neon.tech/registro_notas?user=neondb_owner&password=npg_izZeM5pRE7CI&sslmode=require&channelBinding=require";
             String usuario = "neondb_owner";
             String senha = "npg_izZeM5pRE7CI";
 
