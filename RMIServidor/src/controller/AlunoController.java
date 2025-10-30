@@ -19,6 +19,11 @@ public class AlunoController extends UnicastRemoteObject implements InterfaceAlu
     public boolean inserir(AlunoModel aluno) throws RemoteException {
         Conexao c = new Conexao();
         c.conectar();
+        
+        if (c.conector == null) {
+            throw new RemoteException("Não foi possível conectar ao banco de dados.");
+        }
+        
         String sql = "INSERT INTO Aluno (nome, matricula) VALUES (?, ?)";
         try (PreparedStatement ps = c.conector.prepareStatement(sql)) {
             ps.setString(1, aluno.getNome());
@@ -33,10 +38,15 @@ public class AlunoController extends UnicastRemoteObject implements InterfaceAlu
         }
     }
     @Override
-    public ArrayList<AlunoModel> listarAlunos() {
+    public ArrayList<AlunoModel> listarAlunos() throws RemoteException {
         ArrayList<AlunoModel> retorno = new ArrayList<>();
         Conexao c = new Conexao();
         c.conectar();
+        
+        if (c.conector == null) {
+            throw new RemoteException("Não foi possível conectar ao banco de dados.");
+        }
+        
         String sql = "select l.nome, l.matricula from aluno l";
         try{
             PreparedStatement sentenca = c.conector.prepareStatement(sql);

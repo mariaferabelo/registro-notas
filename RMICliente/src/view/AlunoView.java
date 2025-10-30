@@ -6,12 +6,15 @@ import javax.swing.table.DefaultTableModel;
 import controller.InterfaceAluno;
 import controller.InterfaceAvaliacao;
 import controller.InterfaceDisciplina;
+import controller.InterfaceFrequencia;
 import model.AlunoModel;
+import model.DisciplinaModel;
 import java.rmi.registry.*;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
+import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 /**
@@ -20,6 +23,11 @@ import javax.swing.event.ListSelectionListener;
  */
 public class AlunoView extends javax.swing.JFrame {
 
+    private InterfaceAluno alunoController;
+    private InterfaceDisciplina disciplinaController;
+    private InterfaceAvaliacao avaliacaoController;
+    private InterfaceFrequencia frequenciaController;
+    
     /**
      * Creates new form AlunoView
      */
@@ -29,23 +37,89 @@ public class AlunoView extends javax.swing.JFrame {
         preencherTabela();
     }
 
-    private void preencherTabela(){
-        InterfaceAluno controller = new InterfaceAluno();
-        ArrayList<AlunoModel> lista = controller.listarAlunos();
-        DefaultTableModel modeloTabela = (DefaultTableModel) jtAluno.getModel();
-        modeloTabela.setRowCount(0);
-        if(lista.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Não existe nenhum aluno cadastrado."
-                    ,":(", JOptionPane.ERROR_MESSAGE);
-        }else{
-            for(AlunoModel l: lista){
-                modeloTabela.addRow(new String[]{
-                    l.getNome(),
-                    l.getMatricula(),
-                });
+        private void preencherTabela(){
+
+        try{
+            // Conecta ao registry RMI rodando no localhost, porta 1100
+            //!Registry registry = LocateRegistry.getRegistry("localhost", 1100);
+            //!InterfaceAluno controller =  (InterfaceAluno) registry.lookup("AlunoService");
+            ArrayList<AlunoModel> lista = alunoController.listarAlunos();
+            DefaultTableModel modeloTabela = (DefaultTableModel) jtAluno.getModel();
+            modeloTabela.setRowCount(0);
+            if(lista.isEmpty()){
+                JOptionPane.showMessageDialog(this, "Não existe nenhum aluno cadastrado."
+                        ,":(", JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                for(AlunoModel l: lista){
+                    modeloTabela.addRow(new String[]{
+                        l.getNome(),
+                        l.getMatricula(),
+                    });
+                }
             }
         }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
+    
+    private void preencherTabelaAlunos(){
+
+        try{
+            // Conecta ao registry RMI rodando no localhost, porta 1100
+            //!Registry registry = LocateRegistry.getRegistry("localhost", 1100);
+            //!InterfaceAluno controller =  (InterfaceAluno) registry.lookup("AlunoService");
+            ArrayList<AlunoModel> lista = alunoController.listarAlunos();
+            DefaultTableModel modeloTabela = (DefaultTableModel) jtAluno.getModel();
+            modeloTabela.setRowCount(0);
+            if(lista.isEmpty()){
+                JOptionPane.showMessageDialog(this, "Não existe nenhum aluno cadastrado."
+                        ,":(", JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                for(AlunoModel l: lista){
+                    modeloTabela.addRow(new String[]{
+                        l.getNome(),
+                        l.getMatricula(),
+                    });
+                }
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    private void preencherTabelaDisciplinas() {
+        try {
+            // Conecta ao registry RMI rodando no localhost, porta 1100
+            //!Registry registry = LocateRegistry.getRegistry("localhost", 1100);
+            //!InterfaceDisciplina controller = (InterfaceDisciplina) registry.lookup("DisciplinaService");
+
+            ArrayList<DisciplinaModel> lista = (ArrayList<DisciplinaModel>) disciplinaController.listarDisciplinas();
+
+            DefaultTableModel modeloTabela = (DefaultTableModel) jtDisciplina.getModel();
+            modeloTabela.setRowCount(0);
+
+            if (lista.isEmpty()) {
+                JOptionPane.showMessageDialog(this,
+                    "Não existe nenhuma disciplina cadastrada.",
+                    ":(", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                for (DisciplinaModel d : lista) {
+                    modeloTabela.addRow(new String[]{
+                        String.valueOf(d.getIdDisciplina()), // ID convertido para String
+                        d.getDisciplina()                    // Nome da disciplina
+                    });
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this,
+                "Erro ao carregar disciplinas: " + e.getMessage(),
+                "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     
     private void inicializa(){
         try {
@@ -61,7 +135,7 @@ public class AlunoView extends javax.swing.JFrame {
             // Carregar dados nas telas
             preencherTabelaAlunos();
             preencherTabelaDisciplinas();
-            carregarCombos();
+            //!carregarCombos();
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, 
@@ -434,10 +508,9 @@ public class AlunoView extends javax.swing.JFrame {
     private void jtxNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxNomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxNomeActionPerformed
-
+/*
     private void jbCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCadastrarActionPerformed
-        private void jbCadastrarActionPerformed(java.awt.event.ActionEvent evt) {
-            DisciplinaModel disciplina = new DisciplinaModel();
+        DisciplinaModel disciplina = new DisciplinaModel();
             disciplina.setIdDisciplina(Integer.parseInt(jTextField3.getText()));
             disciplina.setDisciplina(jTextField4.getText());
             InterfaceDisciplina discController = null; // Obtenha via RMI lookup
@@ -452,16 +525,51 @@ public class AlunoView extends javax.swing.JFrame {
             } catch (RemoteException e) {
                 JOptionPane.showMessageDialog(this, "Erro de conexão: " + e.getMessage());
             }
-        }
     }//GEN-LAST:event_jbCadastrarActionPerformed
+*/
+    
+    private void jbCadastrarActionPerformed(java.awt.event.ActionEvent evt) {                                            
+    try {
+        // Obter referência remota via RMI
+        Registry registry = LocateRegistry.getRegistry("localhost", 1100);
+        InterfaceDisciplina discController = (InterfaceDisciplina) registry.lookup("DisciplinaService");
 
+        // Criar objeto disciplina
+        DisciplinaModel disciplina = new DisciplinaModel();
+        disciplina.setIdDisciplina(Integer.parseInt(jTextField3.getText()));
+        disciplina.setDisciplina(jTextField4.getText());
+
+        // Inserir via RMI
+        boolean success = discController.inserir(disciplina);
+        if (success) {
+            // Atualizar tabela (implemente esse método)
+            // preencherTabelaDisciplinas();
+
+            // Limpar campos
+            jTextField3.setText("");
+            jTextField4.setText("");
+
+            JOptionPane.showMessageDialog(this, "Disciplina cadastrada com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Falha ao cadastrar disciplina.");
+        }
+
+    } catch (RemoteException e) {
+        JOptionPane.showMessageDialog(this, "Erro de conexão: " + e.getMessage());
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage());
+        e.printStackTrace();
+    }
+}
+
+    
     private void jbCadAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCadAlunoActionPerformed
         AlunoModel aluno = new AlunoModel();
         aluno.setNome(jtxNome.getText());
         aluno.setMatricula(jtxMatricula.getText());
-        InterfaceAluno controller = null; // Obtenha via RMI lookup
+        //InterfaceAluno controller = null; // Obtenha via RMI lookup
         try {
-            boolean success = controller.inserir(aluno);
+            boolean success = alunoController.inserir(aluno);
             if (success) {
                 preencherTabela();
                 jtxNome.setText("");
