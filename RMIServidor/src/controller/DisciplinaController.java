@@ -19,7 +19,13 @@ public class DisciplinaController extends UnicastRemoteObject implements Interfa
     public boolean inserir(DisciplinaModel disciplina) throws RemoteException {
         Conexao c = new Conexao();
         c.conectar();
-        String sql = "INSERT INTO Disciplina (nome) VALUES (?)";
+        String nome = disciplina.getDisciplina() != null ? disciplina.getDisciplina().trim() : "";
+        if (nome.isEmpty()) {
+            System.err.println("Nome da disciplina não pode ser vazio");
+            c.desconectar();
+            return false;
+        }
+        String sql = "INSERT INTO disciplina (nome) VALUES (?)";
         try (PreparedStatement ps = c.conector.prepareStatement(sql)) {
             ps.setString(1, disciplina.getDisciplina());
             int rows = ps.executeUpdate();
@@ -37,7 +43,7 @@ public class DisciplinaController extends UnicastRemoteObject implements Interfa
         ArrayList<DisciplinaModel> lista = new ArrayList<>();
         Conexao c = new Conexao();
         c.conectar();
-        String sql = "SELECT id_disciplina, nome FROM Disciplina ORDER BY nome";
+        String sql = "SELECT id_disciplina, nome FROM disciplina ORDER BY nome";
         try (PreparedStatement ps = c.conector.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {

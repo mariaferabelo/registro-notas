@@ -24,11 +24,12 @@ public class AlunoController extends UnicastRemoteObject implements InterfaceAlu
             throw new RemoteException("Não foi possível conectar ao banco de dados.");
         }
         
-        String sql = "INSERT INTO Aluno (nome, matricula) VALUES (?, ?)";
+        String sql = "INSERT INTO aluno (nome, matricula) VALUES (?, ?)";
         try (PreparedStatement ps = c.conector.prepareStatement(sql)) {
             ps.setString(1, aluno.getNome());
             ps.setString(2, aluno.getMatricula());
             int rows = ps.executeUpdate();
+            System.out.println("Linhas afetadas: " + rows);
             c.desconectar();
             return rows > 0;
         } catch (SQLException e) {
@@ -47,16 +48,18 @@ public class AlunoController extends UnicastRemoteObject implements InterfaceAlu
             throw new RemoteException("Não foi possível conectar ao banco de dados.");
         }
         
-        String sql = "select l.nome, l.matricula from aluno l";
+        String sql = "select a.nome, a.matricula from aluno a";
         try{
             PreparedStatement sentenca = c.conector.prepareStatement(sql);
             ResultSet result = sentenca.executeQuery();
             while(result.next()){
-                AlunoModel l = new AlunoModel();
-                l.setNome(result.getString("nome"));
-                l.setMatricula(result.getString("matricula"));
-                retorno.add(l);
+                AlunoModel a = new AlunoModel();
+                a.setNome(result.getString("nome"));
+                a.setMatricula(result.getString("matricula"));
+                retorno.add(a);
+                System.out.println("Aluno: " + a.getNome() + ", Matrícula: " + a.getMatricula());
             }
+            System.out.println("Total: " + retorno.size());
         }catch(SQLException  e){
             System.out.println("Erro na seleção: "+ e.getMessage());
         }

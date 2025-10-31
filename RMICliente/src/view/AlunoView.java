@@ -135,6 +135,8 @@ public class AlunoView extends javax.swing.JFrame {
             // Carregar dados nas telas
             preencherTabelaAlunos();
             preencherTabelaDisciplinas();
+            
+            
             //!carregarCombos();
 
         } catch (Exception e) {
@@ -147,6 +149,7 @@ public class AlunoView extends javax.swing.JFrame {
         jbCadastrar.setEnabled(true);
     }
         
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -177,7 +180,7 @@ public class AlunoView extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jbCadAvaliacao = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtAvaliacao = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jtxNome = new javax.swing.JTextField();
         jtxMatricula = new javax.swing.JTextField();
@@ -187,16 +190,17 @@ public class AlunoView extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtAluno = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        jcbAlunoF = new javax.swing.JComboBox<>();
+        jcbDiscFreq = new javax.swing.JComboBox<>();
+        jtxData = new javax.swing.JTextField();
+        presente = new javax.swing.JCheckBox();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jtFrequencia = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        jbCadFrequencia = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -258,7 +262,7 @@ public class AlunoView extends javax.swing.JFrame {
                     .addComponent(jbCadastrar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Disciplinas", jPanel2);
@@ -278,8 +282,13 @@ public class AlunoView extends javax.swing.JFrame {
         jLabel8.setText("Nota");
 
         jbCadAvaliacao.setText("Cadastrar");
+        jbCadAvaliacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCadAvaliacaoActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtAvaliacao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -287,10 +296,10 @@ public class AlunoView extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Aluno", "Disciplina", "Tipo", "Nota"
             }
         ));
-        jScrollPane3.setViewportView(jTable1);
+        jScrollPane3.setViewportView(jtAvaliacao);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -345,7 +354,7 @@ public class AlunoView extends javax.swing.JFrame {
                     .addComponent(jbCadAvaliacao))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Avaliação", jPanel3);
@@ -418,13 +427,11 @@ public class AlunoView extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Alunos", jPanel1);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbAlunoF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbDiscFreq.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jTextField1.setText("jTextField1");
-
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jtFrequencia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -432,10 +439,10 @@ public class AlunoView extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Aluno", "Disciplina", "Data", "Presente"
             }
         ));
-        jScrollPane4.setViewportView(jTable2);
+        jScrollPane4.setViewportView(jtFrequencia);
 
         jLabel9.setText("Aluno");
 
@@ -444,6 +451,8 @@ public class AlunoView extends javax.swing.JFrame {
         jLabel11.setText("Data");
 
         jLabel12.setText("Presente?");
+
+        jbCadFrequencia.setText("Cadastrar");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -459,10 +468,13 @@ public class AlunoView extends javax.swing.JFrame {
                     .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox1))
+                    .addComponent(jcbDiscFreq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jcbAlunoF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbCadFrequencia))
+                    .addComponent(jtxData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(presente))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -471,19 +483,20 @@ public class AlunoView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcbAlunoF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbCadFrequencia))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcbDiscFreq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jtxData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12)
-                    .addComponent(jCheckBox1))
+                    .addComponent(presente))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(36, Short.MAX_VALUE))
@@ -499,7 +512,7 @@ public class AlunoView extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
 
         pack();
@@ -529,38 +542,31 @@ public class AlunoView extends javax.swing.JFrame {
 */
     
     private void jbCadastrarActionPerformed(java.awt.event.ActionEvent evt) {                                            
-    try {
-        // Obter referência remota via RMI
-        Registry registry = LocateRegistry.getRegistry("localhost", 1100);
-        InterfaceDisciplina discController = (InterfaceDisciplina) registry.lookup("DisciplinaService");
-
-        // Criar objeto disciplina
-        DisciplinaModel disciplina = new DisciplinaModel();
-        disciplina.setIdDisciplina(Integer.parseInt(jTextField3.getText()));
-        disciplina.setDisciplina(jTextField4.getText());
-
-        // Inserir via RMI
-        boolean success = discController.inserir(disciplina);
-        if (success) {
-            // Atualizar tabela (implemente esse método)
-            // preencherTabelaDisciplinas();
-
-            // Limpar campos
-            jTextField3.setText("");
-            jTextField4.setText("");
-
-            JOptionPane.showMessageDialog(this, "Disciplina cadastrada com sucesso!");
-        } else {
-            JOptionPane.showMessageDialog(this, "Falha ao cadastrar disciplina.");
+        try {
+            if (disciplinaController == null) {
+                throw new Exception("DisciplinaController não inicializado.");
+            }
+            DisciplinaModel disciplina = new DisciplinaModel();
+            String nomeDisciplina = jTextField4.getText().trim();
+            if (nomeDisciplina.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Nome da disciplina não pode ser vazio!");
+                return;
+            }
+            disciplina.setDisciplina(nomeDisciplina);
+            boolean success = disciplinaController.inserir(disciplina);
+            if (success) {
+                preencherTabelaDisciplinas();
+                jTextField3.setText("");
+                jTextField4.setText("");
+                JOptionPane.showMessageDialog(this, "Disciplina cadastrada com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Falha ao cadastrar disciplina.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage());
+            e.printStackTrace();
         }
-
-    } catch (RemoteException e) {
-        JOptionPane.showMessageDialog(this, "Erro de conexão: " + e.getMessage());
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage());
-        e.printStackTrace();
     }
-}
 
     
     private void jbCadAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCadAlunoActionPerformed
@@ -582,6 +588,10 @@ public class AlunoView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Erro de conexão: " + e.getMessage());
         }
     }//GEN-LAST:event_jbCadAlunoActionPerformed
+
+    private void jbCadAvaliacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCadAvaliacaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbCadAvaliacaoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -619,9 +629,6 @@ public class AlunoView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -644,21 +651,25 @@ public class AlunoView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JButton jbCadAluno;
     private javax.swing.JButton jbCadAvaliacao;
+    private javax.swing.JButton jbCadFrequencia;
     private javax.swing.JButton jbCadastrar;
     private javax.swing.JComboBox<String> jcbAluno;
+    private javax.swing.JComboBox<String> jcbAlunoF;
+    private javax.swing.JComboBox<String> jcbDiscFreq;
     private javax.swing.JComboBox<String> jcbDisciplina;
     private javax.swing.JComboBox<String> jcbTipo;
     private javax.swing.JTable jtAluno;
+    private javax.swing.JTable jtAvaliacao;
     private javax.swing.JTable jtDisciplina;
+    private javax.swing.JTable jtFrequencia;
+    private javax.swing.JTextField jtxData;
     private javax.swing.JTextField jtxMatricula;
     private javax.swing.JTextField jtxNome;
     private javax.swing.JTextField jtxNota;
+    private javax.swing.JCheckBox presente;
     // End of variables declaration//GEN-END:variables
 }
